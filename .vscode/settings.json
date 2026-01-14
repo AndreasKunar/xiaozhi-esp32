@@ -1,0 +1,17 @@
+{
+  "idf.adapterTargetName": "esp32s3",
+  "idf.pythonBinaryPath": "/opt/esp/python_env/idf5.5_py3.12_env/bin/python",
+  "idf.espIdfPath": "/opt/esp/idf",
+  "idf.toolsPath": "/opt/esp",
+  "cmake.toolsPath": "/usr/bin",
+  "files.associations": {
+    "sdkconfig": "properties"
+  },
+  "idf.pythonInstallPath": "/usr/bin/python3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.flashType": "UART",
+  "idf.port": "/dev/ttyACM0",
+  "idf.buildDirectory": "/opt/build-cache/4future-ai-esp32"
+}
