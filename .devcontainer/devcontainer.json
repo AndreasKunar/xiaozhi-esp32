@@ -1,0 +1,51 @@
+{
+  "name": "ESP-IDF 5.5.1 DevContainer",
+  "build": { "dockerfile": "Dockerfile" },
+
+  "overrideCommand": true,
+  "remoteUser": "root",
+  "command": "/bin/sh -c 'while sleep 3600; do :; done'",
+
+  "runArgs": [
+    "--device=/dev/ttyACM0",
+    "--mount=type=bind,src=/dev/bus/usb,dst=/dev/bus/usb",
+//    "--device=/dev/bus/usb",
+    "--privileged",
+    "--init",
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined",
+    "--memory=6g",
+    "--memory-swap=6g"
+  ],
+
+  "mounts": [
+    "source=espidf-build-cache,target=/opt/build-cache,type=volume"
+  ],
+
+  "containerEnv": {
+    "VSCODE_AGENT_FOLDER": "/root/.vscode-server",
+    "IDF_TARGET": "esp32s3",
+    "IDF_BUILD_DIR": "/opt/build-cache/${containerWorkspaceFolderBasename}",
+    "ESPPORT": "/dev/ttyACM0"
+  },
+
+  // 👇 new: load the ESP-IDF environment automatically after container starts
+  "postCreateCommand": "echo 'source /opt/esp/idf/export.sh' >> /root/.bashrc",
+  "postStartCommand": "bash -lc 'source /opt/esp/idf/export.sh && rm -f \"$IDF_BUILD_DIR\"/dependencies.lock && idf.py -B \"$IDF_BUILD_DIR\" reconfigure'",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "espressif.esp-idf-extension",
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools"
+      ],
+      "settings": {
+        "idf.port": "/dev/ttyACM0",
+        "idf.buildDirectory": "${containerEnv:IDF_BUILD_DIR}",
+        "idf.adapterTargetName": "esp32s3",
+        "idf.flashType": "UART"
+      }
+    }
+  }
+}
