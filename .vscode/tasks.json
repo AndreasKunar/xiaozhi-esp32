@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "IDF: Set target",
+      "type": "shell",
+      "command": "idf.py set-target ${config:idf.adapterTargetName}",
+      "options": { "cwd": "${config:idf.buildDirectory}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "IDF: Build",
+      "type": "shell",
+      "command": "idf.py -B ${config:idf.buildDirectory} build",
+      "problemMatcher": []
+    },
+    {
+      "label": "IDF: Flash",
+      "type": "shell",
+      "command": "idf.py -B ${config:idf.buildDirectory} -p ${config:idf.port} flash",
+      "problemMatcher": []
+    },
+    {
+      "label": "IDF: Monitor",
+      "type": "shell",
+      "command": "idf.py -p ${config:idf.port} monitor",
+      "problemMatcher": []
+    }
+  ]
+}
